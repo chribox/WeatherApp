@@ -6,10 +6,6 @@ body {
     background-color: #eee;
 }
 
-#langSelect {
-    margin-top: 10px;
-}
-
 #location ul li {
 list-style: none;
 color: darkred;
