@@ -5,7 +5,6 @@ namespace App\Api;
 
 use App\Entity\Location;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use Symfony\Component\Serializer\Serializer;
 
 /**
@@ -45,39 +44,14 @@ class WeatherApi implements WeatherApiInterface
 
     /**
      * @param Location $location
-     * @return ApiResponse
-     * @throws ClientException
+     * @return ApiResponse|null
      */
-    public function getWeatherForGivenCity(Location $location): ? ApiResponse
-    {
-        $baseUri = '/data/2.5/weather?lang=fr&units=metric&APPID=' . $this->apiKey;
-        $params = sprintf('&q=%s', $location->getCity());
-        try {
-            $response = $this->weatherClient->get($baseUri . $params);
-            $apiResponse = $this->serializer->deserialize($response->getBody()->getContents(), ApiResponse::class, 'json');
-        } catch (ClientException $e) {
-            $apiResponse = null;
-        }
-
-        return $apiResponse;
-    }
-
-    /**
-     * @param Location $location
-     * @return ApiResponse
-     * @throws ClientException
-     */
-    public function getWeatherForGivenCoordinates(Location $location): ? ApiResponse
+    public function getCurrentForGivenCoordinates(Location $location): ? ApiResponse
     {
         $baseUri = '/data/2.5/weather?lang=fr&units=metric&APPID=' . $this->apiKey;
         $params = sprintf('&lat=%s&lon=%s', $location->getLatitude(), $location->getLongitude());
-        try {
-            $response = $this->weatherClient->get($baseUri . $params);
-            $apiResponse = $this->serializer->deserialize($response->getBody()->getContents(), ApiResponse::class, 'json');
-        } catch (ClientException $e) {
-            $apiResponse = null;
-        }
+        $response = $this->weatherClient->get($baseUri . $params);
 
-        return $apiResponse;
+        return $this->serializer->deserialize($response->getBody()->getContents(), ApiResponse::class, 'json');
     }
 }

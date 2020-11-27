@@ -6,6 +6,10 @@ body {
     background-color: #eee;
 }
 
+#langSelect {
+    margin-top: 10px;
+}
+
 #location ul li {
 list-style: none;
 color: darkred;
@@ -39,8 +43,6 @@ color: darkred;
 }
 
 #weatherTitle {
-    text-align: center;
-    margin-bottom: 50px;
     font-weight: bold;
     color: #ffc107;
 }
@@ -86,8 +88,7 @@ h4 {
     text-align: center;
 }
 
-.error {
-    margin-top: 50px;
+#flash_message {
     text-align: center;
     font-size: large;
     color: darkred;

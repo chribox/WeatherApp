@@ -1,3 +1,5 @@
-index:
-    path: /
+dashboard:
+    path: /{_locale}
     controller: App\Controller\HomeController::index
+    requirements:
+        _locale: fr|en

@@ -31,12 +31,10 @@ class LocationType extends AbstractType
             ->add('longitude', Type\NumberType::class, [
                 'label' => 'weather.form.longitude_label',
                 'attr' => ['class' => 'form-control'],
-                'required' => false,
             ])
             ->add('latitude', Type\NumberType::class, [
                 'label' => 'weather.form.latitude_label',
                 'attr' => ['class' => 'form-control'],
-                'required' => false,
             ])
         ;
     }

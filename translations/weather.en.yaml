@@ -1,0 +1,34 @@
+dashboard:
+  title: Meteorological information
+  lang:
+    french: French
+    english: English
+  message:
+    service_tempory_offline: Service tempory offline. Please try again later.
+weather:
+  form:
+    city_label: Town
+    longitude_label: Longitude
+    latitude_label: Latitude
+    submit_button: Submit
+    reset_button: Reset
+  infos:
+    location: Location
+    country: Country
+    coordinate: Coordinates
+    long: Longitude
+    lat: Latitude
+    weather: Weather
+    wind: Winds
+    speed: speed
+    deg: deg
+    temp: Temperature  °C
+    real: real
+    feels_like: feels like
+    temp_min: min
+    temp_max: max
+    pressure: pression
+    humidity: humidity
+    day: 'For the day of '
+    sunrise: 'Sunrise : '
+    sunset: 'Sunset : '

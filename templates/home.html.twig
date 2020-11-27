@@ -2,7 +2,6 @@
 {% trans_default_domain "weather" %}
 
 {% block body %}
-    <h1 id="weatherTitle">{{'weather.title' | trans}}</h1>
     <section class="container">
         <div class="row">
             <div class="col-md-12 form_block">
@@ -13,9 +12,7 @@
         </div>
     </section>
     <div class="container">
-        {% if weatherResult is null and hasData == true %}
-            <p class="error">{{'weather.error.no_result' | trans}}</p>
-        {% elseif hasData %}
+        {% if hasData %}
         <div>
             <table id="locationInfos">
                 <thead>

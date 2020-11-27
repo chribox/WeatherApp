@@ -12,15 +12,10 @@ use App\Entity\Location;
  */
 interface WeatherApiInterface
 {
-    /**
-     * @param Location $location
-     * @return ApiResponse|null
-     */
-    public function getWeatherForGivenCity(Location $location): ? ApiResponse;
 
     /**
      * @param Location $location
      * @return ApiResponse|null
      */
-    public function getWeatherForGivenCoordinates(Location $location): ? ApiResponse;
+    public function getCurrentForGivenCoordinates(Location $location): ? ApiResponse;
 }

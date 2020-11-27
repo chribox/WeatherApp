@@ -1,5 +1,7 @@
+{% trans_default_domain "weather" %}
+
 <!DOCTYPE html>
-<html>
+<html lang="{{ app.request.locale }}">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}WeatherApp!{% endblock %}</title>
@@ -7,11 +9,54 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.min.css" integrity="sha256-KcCcakqMaamBrTFaxb9tkrP2iq1X8vUnsm86W8pRcgI=" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons-wind.css" integrity="sha256-g3zFu4dcBvjQB8EzpTMru+trkaLxViDjDR4yD7XfvKI=" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" integrity="sha512-Cv93isQdFwaKBV+Z4X8kaVBYWHST58Xb/jVOcV9aRsGSArZsgAnFIhMpDoMDcFNoUtday1hdjn0nGp3+KZyyFw==" crossorigin="anonymous" />
         <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a id="weatherTitle" class="navbar-brand" href="{{ path('dashboard') }}">{{ 'dashboard.title'|trans }} <i class="wi wi-night-sleet"></i></a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+
+                        <a class="{% if app.request.locale == 'fr' %}active{% endif %}"
+                           href="{{
+                           path(
+                               app.request.attributes.get('_route'),
+                               app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({_locale: 'fr'}))
+                           )}}"
+                           title="{{ 'dashboard.lang.french'|trans }}"><span class="flag-icon flag-icon-fr"></span> {{ 'dashboard.lang.french'|trans }}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{% if app.request.locale == 'en' %}active{% endif %}"
+                           href="{{
+                           path(
+                               app.request.attributes.get('_route'),
+                               app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({_locale: 'en'}))
+                           )}}"
+                           title="{{ 'dashboard.lang.english'|trans }}"><span class="flag-icon flag-icon-gb"></span> {{ 'dashboard.lang.english'|trans }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div id="flash_message" class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {% block body %}{% endblock %}
+
+    {% block javascripts %}{% endblock %}
     </body>
 </html>

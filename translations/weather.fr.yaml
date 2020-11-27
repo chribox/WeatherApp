@@ -1,9 +1,17 @@
-weather:
+dashboard:
   title: Informations météorologique
+  lang:
+    french: Français
+    english: Anglais
+  message:
+    service_tempory_offline: Service temporairement hors ligne. Veuillez re-essayer plus tard.
+weather:
   form:
     city_label: Ville
     longitude_label: Longitude
     latitude_label: Latitude
+    submit_button: Valider
+    reset_button: Effacer
   infos:
     location: Localité
     country: Pays
@@ -24,7 +32,3 @@ weather:
     day: 'Pour la journée du '
     sunrise: 'Lever du soleil : '
     sunset: 'Coucher du soleil : '
-    Thursday: hhh
-
-  error:
-    no_result: pas de résultats pour cette requête !
