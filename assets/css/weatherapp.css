@@ -1,0 +1,129 @@
+/*
+ pour générer les assets `docker-compose run encore yarn encore dev --watch` dans dossier infra
+*/
+
+body {
+    background-color: #eee;
+}
+
+#location ul li {
+list-style: none;
+color: darkred;
+}
+
+#map {
+    width: 600px;
+    height: 500px;
+    margin-left: 100px;
+}
+
+.reset {
+    float: right;
+    margin-top: 20px;
+    margin-right: 20px;
+    padding: 10px 15px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #a1ceff;
+    border-radius: 8px;
+}
+
+.submit {
+    float: right;
+    margin-top: 20px;
+    padding: 10px 15px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #ffe8a1;
+    border-radius: 8px;
+}
+
+#weatherTitle {
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: bold;
+    color: #ffc107;
+}
+
+h4 {
+    font-weight: bold;
+    color: #65a3db;
+}
+
+.form_block {
+    margin-bottom: 50px;
+    width: 40%
+}
+
+.google_map {
+    width: 60%;
+    text-align: right;
+    margin: auto;
+}
+
+#locationInfos {
+    width: 1200px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#locationInfos td{
+    background-color: #fff3cd;
+}
+
+#weatherInfos {
+    width: 1200px;
+    margin-bottom: 40px;
+}
+
+#weatherInfos td{
+    background-color: #fff3cd;
+}
+
+#locationInfos table, th, td {
+    border: 1px solid black;
+    background-color: #ffe8a1;
+    text-align: center;
+}
+
+.error {
+    margin-top: 50px;
+    text-align: center;
+    font-size: large;
+    color: darkred;
+}
+
+#location #country #coordinate {
+    width: 33%;
+}
+
+#weather {
+    width: 20%;
+}
+
+#speed #deg {
+    width: 10%;
+}
+#deg_value {
+    font-size: x-large;
+}
+
+#real #feels_like #min #max {
+    width: 10%;
+}
+
+#pressure #humidity {
+    width: 10%;
+}
+
+.sun_infos {
+    font-weight: bold;
+}
+
+.sun_infos_value {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #65a3db;
+}
+
+

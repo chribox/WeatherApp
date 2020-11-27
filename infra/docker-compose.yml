@@ -24,3 +24,12 @@ services:
         ports:
             - "80:80"
 
+    encore:
+        image: node:14-alpine
+        volumes:
+            - ${APP_FOLDER}:/var/www
+        ports:
+            - "8080:8080"
+        working_dir: /var/www
+        command: [ "yarn", "dev-server" ]
+

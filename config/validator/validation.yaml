@@ -1,0 +1,7 @@
+# config/validator/validation.yaml
+App\Entity\Location:
+  properties:
+    longitude:
+      - Type: float
+    latitude:
+      - Type: float

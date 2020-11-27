@@ -1,0 +1,30 @@
+weather:
+  title: Informations météorologique
+  form:
+    city_label: Ville
+    longitude_label: Longitude
+    latitude_label: Latitude
+  infos:
+    location: Localité
+    country: Pays
+    coordinate: Coordonnées
+    long: Longitude
+    lat: Latitude
+    weather: Temps
+    wind: Vents
+    speed: vitesse
+    deg: deg
+    temp: Température  °C
+    real: réelle
+    feels_like: ressentie
+    temp_min: min
+    temp_max: max
+    pressure: pression
+    humidity: humidité
+    day: 'Pour la journée du '
+    sunrise: 'Lever du soleil : '
+    sunset: 'Coucher du soleil : '
+    Thursday: hhh
+
+  error:
+    no_result: pas de résultats pour cette requête !

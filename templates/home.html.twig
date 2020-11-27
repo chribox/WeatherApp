@@ -1,0 +1,173 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain "weather" %}
+
+{% block body %}
+    <h1 id="weatherTitle">{{'weather.title' | trans}}</h1>
+    <section class="container">
+        <div class="row">
+            <div class="col-md-12 form_block">
+                {{ form(LocationForm) }}
+            </div>
+            <div id="map" class="col-md-12 google_map">
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        {% if weatherResult is null and hasData == true %}
+            <p class="error">{{'weather.error.no_result' | trans}}</p>
+        {% elseif hasData %}
+        <div>
+            <table id="locationInfos">
+                <thead>
+                    <tr>
+                        <th rowspan="2" id="location">{{'weather.infos.location' | trans}}</th>
+                        <th rowspan="2" id="country">{{'weather.infos.country' | trans}}</th>
+                        <th colspan="2" id="coordinate">{{'weather.infos.coordinate' | trans}}</th>
+                    </tr>
+                    <tr>
+                        <th id="longitude">{{'weather.infos.long' | trans}}</th>
+                        <th id="latitude">{{'weather.infos.lat' | trans}}</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>{{ weatherResult.name }}</td>
+                    <td>{{ weatherResult.sys.country }}</td>
+                    <td>{{ weatherResult.coord.lon }}</td>
+                    <td>{{ weatherResult.coord.lat }}</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table id="weatherInfos">
+                <thead>
+                <tr>
+                    <th id="weather" rowspan="2">{{'weather.infos.weather' | trans}}</th>
+                    <th id="wind" colspan="2">{{'weather.infos.wind' | trans}}</th>
+                    <th id="temp" colspan="4">{{'weather.infos.temp' | trans}}</th>
+                    <th id="pressure" rowspan="2">{{'weather.infos.pressure' | trans}}</th>
+                    <th id="humidity" rowspan="2">{{'weather.infos.humidity' | trans}}</th>
+                </tr>
+                <tr>
+                    <th id="speed">{{'weather.infos.speed' | trans}}</th>
+                    <th id="deg">{{'weather.infos.deg' | trans}}</th>
+                    <th id="real">{{'weather.infos.real' | trans}}</th>
+                    <th id="feels_like">{{'weather.infos.feels_like' | trans}}</th>
+                    <th id="min">{{'weather.infos.temp_min' | trans}}</th>
+                    <th id="max">{{'weather.infos.temp_max' | trans}}</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td>{{ weatherResult.weather[0].description }}</td>
+                    <td>{{ weatherResult.wind.speed }} km/h</td>
+                    <td><i id="deg_value" class="wi wi-wind towards-{{ weatherResult.wind.deg }}-deg"></i></td>
+                    <td>{{ weatherResult.main.temp|round }} <i class="wi wi-celsius"></i></td>
+                    <td>{{ weatherResult.main.feels_like }} <i class="wi wi-celsius"></i></td>
+                    <td>{{ weatherResult.main.temp_min }} <i class="wi wi-celsius"></i></td>
+                    <td>{{ weatherResult.main.temp_max }} <i class="wi wi-celsius"></i></td>
+                    <td>{{ weatherResult.main.pressure }}  <i class="wi wi-barometer"></i></td>
+                    <td>{{ weatherResult.main.humidity }}  <i class="wi wi-humidity"></i></td>
+                </tr>
+            </table>
+            <br>
+            <h4>{{'weather.infos.day' | trans}}{{ weatherResult.sys.sunrise|date('d/m/Y') }}</h4>
+            <p class="sun_infos">{{'weather.infos.sunrise' | trans}}<span class="sun_infos_value">{{ weatherResult.sys.sunrise|date('H:i:s') }}</span></p>
+            <p class="sun_infos">{{'weather.infos.sunset' | trans}}<span class="sun_infos_value">{{ weatherResult.sys.sunset|date('H:i:s') }}</span></p>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        // Montpellier
+        const defaultLng = 3.876716;
+        const defaultLt = 43.610769;
+
+        let autocomplete;
+        let map;
+        let marker;
+        let lg;
+        let lt;
+        let toto;
+
+        function initAll() {
+            initAutocomplete();
+            initMap();
+            reset();
+        }
+
+        function reset() {
+            document.getElementById('location_reset').onclick = function() {
+                document.getElementById('location_city').value = '';
+                document.getElementById('location_longitude').value = '';
+                document.getElementById('location_latitude').value = '';
+            };
+        }
+
+        function initMap() {
+            let PostLongitude = parseFloat(document.getElementById('location_longitude').value);
+            let PostLatitude = parseFloat(document.getElementById('location_latitude').value);
+
+            if (lt === undefined && lg === undefined && !isNaN(PostLongitude) && !isNaN(PostLatitude)) {
+                lt = parseFloat(document.getElementById('location_latitude').value);
+                lg = parseFloat(document.getElementById('location_longitude').value);
+            } else if (isNaN(PostLongitude) || isNaN(PostLatitude) ) {
+                lt = defaultLt;
+                lg = defaultLng;
+            }
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: {lat: lt, lng: lg},
+            });
+            initMarker();
+        }
+
+        function initMarker() {
+            toto = google.maps.event.addListener(map, 'click', function (event) {
+                new google.maps.Marker({
+                    map,
+                    position: event.latLng,
+                    draggable: true,
+                });
+            });
+
+            console.log(toto);
+        }
+
+        function initAutocomplete() {
+            autocomplete = new google.maps.places.Autocomplete(
+                (document.getElementById('location_city')),
+                {types: ['geocode']});
+            autocomplete.addListener('place_changed', fillInForm);
+        }
+
+        function fillInForm() {
+            let place = autocomplete.getPlace();
+            lt = place.geometry.location.lat();
+            lg = place.geometry.location.lng();
+            document.getElementById('location_city').value = place.name;
+            document.getElementById('location_longitude').value = lg;
+            document.getElementById('location_latitude').value = lt;
+            initMap();
+        }
+
+        function geolocate() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    let geolocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    let circle = new google.maps.Circle({
+                        center: geolocation,
+                        radius: position.coords.accuracy
+                    });
+                    autocomplete.setBounds(circle.getBounds());
+                });
+            }
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&libraries=places&callback=initAll"></script>
+{% endblock %}
+
