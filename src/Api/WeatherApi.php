@@ -5,7 +5,7 @@ namespace App\Api;
 
 use App\Entity\Location;
 use GuzzleHttp\Client;
-use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class OpenWeatherApi
@@ -20,7 +20,7 @@ class WeatherApi implements WeatherApiInterface
     private $weatherClient;
 
     /**
-     * @var Serializer
+     * @var SerializerInterface
      */
     private $serializer;
 
@@ -32,10 +32,10 @@ class WeatherApi implements WeatherApiInterface
     /**
      * OpenWeatherApi constructor.
      * @param Client $weatherClient
-     * @param Serializer $serializer
+     * @param SerializerInterface $serializer
      * @param $apiKey
      */
-    public function __construct(Client $weatherClient, Serializer $serializer, $apiKey)
+    public function __construct(Client $weatherClient, SerializerInterface $serializer, $apiKey)
     {
         $this->weatherClient = $weatherClient;
         $this->serializer = $serializer;
@@ -44,9 +44,9 @@ class WeatherApi implements WeatherApiInterface
 
     /**
      * @param Location $location
-     * @return ApiResponse|null
+     * @return ApiResponse
      */
-    public function getCurrentForGivenCoordinates(Location $location): ? ApiResponse
+    public function getCurrentForGivenCoordinates(Location $location): ApiResponse
     {
         $baseUri = '/data/2.5/weather?lang=fr&units=metric&APPID=' . $this->apiKey;
         $params = sprintf('&lat=%s&lon=%s', $location->getLatitude(), $location->getLongitude());

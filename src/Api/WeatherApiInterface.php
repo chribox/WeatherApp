@@ -15,7 +15,7 @@ interface WeatherApiInterface
 
     /**
      * @param Location $location
-     * @return ApiResponse|null
+     * @return ApiResponse
      */
-    public function getCurrentForGivenCoordinates(Location $location): ? ApiResponse;
+    public function getCurrentForGivenCoordinates(Location $location): ApiResponse;
 }

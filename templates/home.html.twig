@@ -82,7 +82,6 @@
 
         let autocomplete;
         let map;
-        let marker;
         let lg;
         let lt;
         let toto;
@@ -117,19 +116,10 @@
                 zoom: 12,
                 center: {lat: lt, lng: lg},
             });
-            initMarker();
-        }
-
-        function initMarker() {
-            toto = google.maps.event.addListener(map, 'click', function (event) {
-                new google.maps.Marker({
-                    map,
-                    position: event.latLng,
-                    draggable: true,
-                });
+            new google.maps.Marker({
+                map,
+                position: {lat: lt, lng: lg},
             });
-
-            console.log(toto);
         }
 
         function initAutocomplete() {
@@ -143,6 +133,8 @@
             let place = autocomplete.getPlace();
             lt = place.geometry.location.lat();
             lg = place.geometry.location.lng();
+            myLatLng = { lat: lt, lng: lg };
+
             document.getElementById('location_city').value = place.name;
             document.getElementById('location_longitude').value = lg;
             document.getElementById('location_latitude').value = lt;
