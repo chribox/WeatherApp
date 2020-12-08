@@ -18,4 +18,16 @@ Pour installer l'application veuillez suivre les instructions suivantes :
 ### Lancement
 
 - Dans le dossier infra du projet lancez la commande `docker-compose up` et rendez vous dans votre navigateur sur l'adresse 
-http:/localhost
+`http:/localhost/fr`
+
+### Tests
+- Dans le dossier infra du projet lancez la commande `docker-compose run php bin/phpunit`
+
+## Utilisation
+
+- Saisissez une localisation (autocomplétion) ou des coordonnées GPS afin d'en obbtenir les informations météorologiques.
+- Une carte google map permet de vérifier la bonne localisation.
+
+### langues
+- Vous pouvez à tout moment changer la langue de l'application (actuellement Anglais, Français) en cliquant sur les boutons respectifs situés à droite dans le menu de l'application.
+
