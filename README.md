@@ -3,6 +3,10 @@
 WeatherApp est une application de visualisation d'informations météorologiques d'une localisation donnée.
 Développé sous Symfony 5 en PHP 7.
 
+## Prérequis
+- Docker sur sa machine ([Mac](https://docs.docker.com/docker-for-mac/install/), [Ubuntu](https://docs.docker.com/engine/install/ubuntu/), [Windows](https://docs.docker.com/docker-for-windows/install/))
+- Docker-compose https://docs.docker.com/compose/install/
+
 ## Installation
 
 Pour installer l'application veuillez suivre les instructions suivantes : 
