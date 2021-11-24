@@ -23,6 +23,7 @@ Pour installer l'application veuillez suivre les instructions suivantes :
 
 - Dans le dossier infra du projet lancez la commande `docker-compose up` et rendez vous dans votre navigateur sur l'adresse 
 `http:/localhost/fr`
+- Au cas où la google map ne s'affiche pas lancer la commande `docker-compose run encore yarn encore dev --watch`
 
 ### Tests
 - Dans le dossier infra du projet lancez la commande `docker-compose run php bin/phpunit`
